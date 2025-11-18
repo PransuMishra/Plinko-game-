@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Round {
+  id              String   @id @default(cuid())
+  status          String
+  serverSeed      String
+  nonce           String
+  commitHex       String
+  rows            Int
+
+  clientSeed      String?    
+  combinedSeed    String?    
+  pegMapHash      String?    
+  dropColumn      Int?       
+  binIndex        Int?       
+  payoutMultiplier Float?    
+  betCents        Int?       
+
+  // IMPORTANT FIX: pathJson should be JSON, not String
+  pathJson        Json?      
+
+  revealedAt      DateTime?  
+
+  createdAt       DateTime @default(now())
+}
